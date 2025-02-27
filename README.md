@@ -162,7 +162,7 @@ You can use the provided release script to automate the version update, build, a
 
 ```bash
 python -m build
-twine upload dist/*
+twine upload --skip-existing dist/*
 ```
 
 The script will:
