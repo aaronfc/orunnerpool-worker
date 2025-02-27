@@ -158,9 +158,24 @@ launchctl load ~/Library/LaunchAgents/com.orunnerpool.worker.plist
 
 ## Releasing
 
-- Build with `python -m build`.
-- Publish to PyPI `twine upload dist/*`.
+You can use the provided release script to automate the version update, build, and upload process:
 
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Update version and release
+./release.py [major|minor|patch]
+```
+
+The script will:
+1. Update the version in both pyproject.toml and orunnerpool/__init__.py based on semantic versioning
+2. Build the package
+3. Prompt you to upload to PyPI
+
+Alternatively, you can manually:
+- Build with `python -m build`
+- Publish to PyPI with `twine upload dist/*`
 
 ## Contributing
 
