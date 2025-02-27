@@ -33,7 +33,6 @@ DEFAULT_CONFIG = {
 }
 
 CONFIG_PATHS = [
-    'config.ini',  # Current directory
     os.path.expanduser('~/.config/orunnerpool/config.ini'),  # User config directory
     '/etc/orunnerpool/config.ini',  # System config directory
 ]
@@ -50,9 +49,9 @@ def get_config_path():
     if not os.path.exists(user_config_dir):
         try:
             os.makedirs(user_config_dir)
-        except OSError:
-            # Fall back to current directory if we can't create the user config dir
-            return 'config.ini'
+        except OSError as e:
+            logger.error(f"Error creating directory {user_config_dir}: {e}")
+            raise
     
     return os.path.join(user_config_dir, 'config.ini')
 
@@ -129,7 +128,7 @@ def interactive_setup():
             os.makedirs(config_dir)
         except OSError as e:
             print(f"Error creating directory {config_dir}: {e}")
-            config_path = 'config.ini'  # Fall back to current directory
+            raise
     
     try:
         with open(config_path, 'w') as f:

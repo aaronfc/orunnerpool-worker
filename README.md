@@ -14,46 +14,25 @@ This is the worker component of the [ORunner Pool project](https://orunnerpool.c
 
 ## Installation
 
-1. Clone the repository or download the worker files:
-   ```bash
-   git clone https://github.com/aaronfc/orunnerpool-worker.git
-   cd orunnerpool-worker
-   ```
+Install the worker using pipx:
 
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+pipx install orunnerpool
+```
 
-3. Create your configuration file:
-   ```bash
-   cp config.ini.example config.ini
-   ```
+To upgrade to the latest version:
 
-4. Edit the `config.ini` file with your settings:
-   ```ini
-   [auth]
-   # Your API key from the Ollama Runner Pool web interface
-   api_key = your_api_key_here
+```bash
+pipx upgrade orunnerpool
+```
 
-   [pool]
-   # URL of the pool API
-   # If using Docker Compose for development, use http://localhost:8000
-   # For production, use https://api.orunnerpool.com
-   api_url = https://api.orunnerpool.com
+## Configuration
 
-   [worker]
-   # Name of this worker (shown in the web interface)
-   name = My Ollama Worker
-   # Heartbeat interval in seconds
-   heartbeat_interval = 30
-   # Task polling interval in seconds
-   poll_interval = 5
+The worker uses a configuration file located at:
+- `~/.config/orunnerpool/config.ini` (user-specific configuration)
+- `/etc/orunnerpool/config.ini` (system-wide configuration)
 
-   [ollama]
-   # URL of your local Ollama instance
-   url = http://localhost:11434
-   ```
+When you run the worker for the first time, an interactive setup will guide you through creating your configuration file. You'll need your API key from the ORunner Pool website.
 
 ## Usage
 
@@ -64,12 +43,7 @@ This is the worker component of the [ORunner Pool project](https://orunnerpool.c
 
 2. Start the worker:
    ```bash
-   python worker.py
-   ```
-
-   Or specify a custom config file location:
-   ```bash
-   python worker.py --config /path/to/your/config.ini
+   orunnerpool
    ```
 
 3. The worker will automatically:
@@ -83,7 +57,7 @@ This is the worker component of the [ORunner Pool project](https://orunnerpool.c
 The worker logs to stdout by default. You can redirect the output to a file:
 
 ```bash
-python worker.py > worker.log 2>&1
+orunnerpool > worker.log 2>&1
 ```
 
 ## Running as a Service
@@ -96,20 +70,19 @@ python worker.py > worker.log 2>&1
 Create a systemd service file:
 
 ```bash
-sudo nano /etc/systemd/system/ollama-worker.service
+sudo nano /etc/systemd/system/orunnerpool.service
 ```
 
 Add the following content:
 
 ```
 [Unit]
-Description=Ollama Runner Pool Worker
+Description=ORunner Pool Worker
 After=network.target
 
 [Service]
 User=yourusername
-WorkingDirectory=/path/to/worker
-ExecStart=/usr/bin/python3 /path/to/worker/worker.py
+ExecStart=/usr/bin/orunnerpool
 Restart=always
 RestartSec=10
 
@@ -120,8 +93,8 @@ WantedBy=multi-user.target
 Enable and start the service:
 
 ```bash
-sudo systemctl enable ollama-worker
-sudo systemctl start ollama-worker
+sudo systemctl enable orunnerpool
+sudo systemctl start orunnerpool
 ```
 
 ### Launchd (macOS)
@@ -129,7 +102,7 @@ sudo systemctl start ollama-worker
 Create a plist file:
 
 ```bash
-nano ~/Library/LaunchAgents/com.ollama.worker.plist
+nano ~/Library/LaunchAgents/com.orunnerpool.worker.plist
 ```
 
 Add the following content:
@@ -140,22 +113,19 @@ Add the following content:
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.ollama.worker</string>
+    <string>com.orunnerpool.worker</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/python3</string>
-        <string>/path/to/worker/worker.py</string>
+        <string>/usr/local/bin/orunnerpool</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
-    <key>WorkingDirectory</key>
-    <string>/path/to/worker</string>
     <key>StandardOutPath</key>
-    <string>/path/to/worker/worker.log</string>
+    <string>~/Library/Logs/orunnerpool.log</string>
     <key>StandardErrorPath</key>
-    <string>/path/to/worker/worker.log</string>
+    <string>~/Library/Logs/orunnerpool.log</string>
 </dict>
 </plist>
 ```
@@ -163,7 +133,7 @@ Add the following content:
 Load the service:
 
 ```bash
-launchctl load ~/Library/LaunchAgents/com.ollama.worker.plist
+launchctl load ~/Library/LaunchAgents/com.orunnerpool.worker.plist
 ```
 
 ## Troubleshooting
