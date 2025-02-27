@@ -1,7 +1,7 @@
 # ORunner Pool - Worker Client
 
 > [!WARNING]
-> This project is in a very early status. Consider it a _working_✨ proof of concept.
+> This project is in a very early status. Consider it a _working✨_ proof of concept.
 
 This is the worker component of the [ORunner Pool project](https://orunnerpool.com). It runs on contributor machines to serve Ollama models to the pool.
 
