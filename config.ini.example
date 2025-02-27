@@ -1,0 +1,19 @@
+[auth]
+# Your API key from the Ollama Runner Pool web interface
+api_key = your_api_key_here
+
+[pool]
+# URL of the pool API
+api_url = https://api.orunnerpool.com
+
+[worker]
+# Name of this worker (shown in the web interface)
+name = My Ollama Worker
+# Heartbeat interval in seconds
+heartbeat_interval = 30
+# Task polling interval in seconds
+poll_interval = 5
+
+[ollama]
+# URL of your local Ollama instance
+url = http://localhost:11434 
