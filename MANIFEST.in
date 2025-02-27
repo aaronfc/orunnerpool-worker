@@ -1,0 +1,3 @@
+include config.ini.example
+include README.md
+include LICENSE 

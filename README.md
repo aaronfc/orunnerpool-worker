@@ -186,6 +186,12 @@ launchctl load ~/Library/LaunchAgents/com.ollama.worker.plist
 - Verify that your models are correctly listed in the pool
 - Make sure your worker's heartbeat is being received by the pool
 
+## Releasing
+
+- Build with `python -m build`.
+- Publish to PyPI `twine upload dist/*`.
+
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
