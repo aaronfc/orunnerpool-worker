@@ -161,11 +161,8 @@ launchctl load ~/Library/LaunchAgents/com.orunnerpool.worker.plist
 You can use the provided release script to automate the version update, build, and upload process:
 
 ```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Update version and release
-./release.py [major|minor|patch]
+python -m build
+twine upload dist/*
 ```
 
 The script will:
