@@ -34,6 +34,28 @@ The worker uses a configuration file located at:
 
 When you run the worker for the first time, an interactive setup will guide you through creating your configuration file. You'll need your API key from the ORunner Pool website.
 
+### OpenRouter (Experimental)
+
+> [!WARNING]
+> This is an experimental feature to workaround the fact that at the moment there are very few workers running.
+
+To use the worker in OpenRouter proxy mode, add the following section to your config.ini file:
+
+```ini
+[openrouter]
+# Comma-separated list of supported models
+models = google/gemini-2.0-pro-exp-02-05:free
+```
+
+You can specify multiple models by separating them with commas.
+
+You will need to setup the `OPENROUTER_API_KEY` environment variable:
+```bash
+export OPENROUTER_API_KEY=your_openrouter_api_key
+```
+
+Then run `orunnerpool --openrouter`.
+
 ## Usage
 
 1. Make sure Ollama is running on your machine:

@@ -16,4 +16,9 @@ poll_interval = 5
 
 [ollama]
 # URL of your local Ollama instance
-url = http://localhost:11434 
+url = http://localhost:11434
+
+# Experimental OpenRouter proxy mode:
+#[openrouter]
+# Comma-separated list of supported models
+#models = google/gemini-2.0-pro-exp-02-05:free
